@@ -1,29 +1,37 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Exercicio2 {
 
     public static void main(String[] args) {
-
         int valor;
 
-        do {
-            System.out.print("Digite um valor inteiro entre 1 e 99: ");
+        // Criação da pilha
+        Stack<Integer> numeros = new Stack<>();
+
+        // Empilhamento de números
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Digite o " + (i + 1) + "º número: ");
             Scanner entrada = new Scanner(System.in);
             valor = entrada.nextInt();
             entrada.close(); 
-        } while (valor < 1 || valor > 99);
 
-        int[] N = new int[10];
-
-        N[0] = valor;
-
-        for (int i = 1; i < N.length; i++) {
-            N[i] = N[i - 1] - 1;
+            if (valor % 2 == 0) {
+                numeros.push(valor);
+            } else {
+                if (!numeros.isEmpty()) {
+                    numeros.pop();
+                    System.out.println("Número ímpar removido da pilha."); 
+                } else {
+                    System.out.println("A pilha está vazia. Nenhum número ímpar removido.");
+                }
+            }
         }
 
-        System.out.println("\nValores do vetor N:");
-        for (int elemento : N) {
-            System.out.print(elemento + " ");
+        // Desempilhamento e impressão da pilha
+        System.out.println("\nDesempilhando elementos da pilha:");
+        while (!numeros.isEmpty()) {
+            System.out.print(numeros.pop() + " ");
         }
     }
 }
